@@ -62,8 +62,16 @@ public class AddTodoActivity extends AppCompatActivity {
             contentValues.put(TodoContentProvider.COLUMN_WHAT, strings[0]);
             contentValues.put(TodoContentProvider.COLUMN_WHEN, strings[1]);
             Uri uri = getContentResolver().insert(TodoContentProvider.uriTodo, contentValues);
-            Log.d(TAG, uri.toString());
+            if (uri != null) {
+//                Toast.makeText(context, "Insert successful", Toast.LENGTH_SHORT).show();
+                Log.d(TAG, uri.toString());
+            }
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
         }
     }
 }
