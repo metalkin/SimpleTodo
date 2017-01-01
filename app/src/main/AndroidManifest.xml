@@ -18,6 +18,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.AddTodoActivity"
+            android:theme="@style/AddTodoTheme" />
+
+        <provider
+            android:name=".data.TodoContentProvider"
+            android:authorities="com.neerajms99b.neeraj.simpletodo.data" />
     </application>
 
 </manifest>

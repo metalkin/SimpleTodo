@@ -21,8 +21,8 @@ public class TodoContentProvider extends ContentProvider {
     private SQLiteDatabase database;
 
     public static final String KEY_ID = "_id";
-    public static final String COLUMN_WHAT = "what";
-    public static final String COLUMN_WHEN = "when";
+    public static final String COLUMN_WHAT = "whattodo";
+    public static final String COLUMN_WHEN = "whentodo";
 
     private static final UriMatcher uriMatcher;
 
@@ -36,7 +36,7 @@ public class TodoContentProvider extends ContentProvider {
     public boolean onCreate() {
         TodoDbHelper dbHelper = new TodoDbHelper(getContext());
         database = dbHelper.getWritableDatabase();
-        return (database != null) ? true : false;
+        return (database != null);
     }
 
     @Nullable

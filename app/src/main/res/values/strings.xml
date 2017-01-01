@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">SimpleTodo</string>
     <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hint_what">to do what?</string>
+    <string name="button_text_add">Add</string>
+    <string name="key_what" translatable="false">whatTodo</string>
+    <string name="key_when" translatable="false">whenTodo</string>
 </resources>
