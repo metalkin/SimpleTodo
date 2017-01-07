@@ -8,4 +8,8 @@
     <string name="button_text_add">Add</string>
     <string name="key_what" translatable="false">whatTodo</string>
     <string name="key_when" translatable="false">whenTodo</string>
+    <string name="key_tag" translatable="false">tag</string>
+    <string name="tag_show_notification" translatable="false">showNotification</string>
+    <string name="notification_title">Todo</string>
+    <string name="notification_id" translatable="false">85</string>
 </resources>

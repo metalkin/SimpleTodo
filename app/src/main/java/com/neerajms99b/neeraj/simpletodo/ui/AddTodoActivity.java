@@ -15,6 +15,11 @@ import android.widget.TimePicker;
 
 import com.neerajms99b.neeraj.simpletodo.R;
 import com.neerajms99b.neeraj.simpletodo.data.TodoContentProvider;
+import com.neerajms99b.neeraj.simpletodo.service.AlarmService;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class AddTodoActivity extends AppCompatActivity {
     private TimePicker timePicker;
@@ -38,7 +43,9 @@ public class AddTodoActivity extends AppCompatActivity {
                 int day = datePicker.getDayOfMonth();
                 int month = datePicker.getMonth() + 1;
                 int year = datePicker.getYear();
-                String date = String.valueOf(day) + "/" + String.valueOf(month) + "/" + String.valueOf(year);
+                String date = String.format("%02d", day) + "-"
+                        + String.format("%02d", month) + "-"
+                        + String.format("%04d", year);
                 int hour;
                 int minute;
                 if (Build.VERSION.SDK_INT >= 23) {
@@ -48,8 +55,9 @@ public class AddTodoActivity extends AppCompatActivity {
                     hour = timePicker.getCurrentHour();
                     minute = timePicker.getCurrentMinute();
                 }
-                String time = String.valueOf(hour) + ":" + String.valueOf(minute);
-                String dateTime = date + ";" + time;
+                String time = String.format("%02d", hour) + ":" + String.format("%02d", minute);
+                String dateTime = date + " " + time;
+
                 new InsertIntoDb().execute(todo, dateTime);
             }
         });
@@ -58,20 +66,25 @@ public class AddTodoActivity extends AppCompatActivity {
     public class InsertIntoDb extends AsyncTask<String, Void, Void> {
         @Override
         protected Void doInBackground(String... strings) {
+            String what = strings[0];
+            String when = strings[1];
             ContentValues contentValues = new ContentValues();
-            contentValues.put(TodoContentProvider.COLUMN_WHAT, strings[0]);
-            contentValues.put(TodoContentProvider.COLUMN_WHEN, strings[1]);
+            contentValues.put(TodoContentProvider.COLUMN_WHAT, what);
+            contentValues.put(TodoContentProvider.COLUMN_WHEN, when);
             Uri uri = getContentResolver().insert(TodoContentProvider.uriTodo, contentValues);
             if (uri != null) {
+                SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+                try {
+                    Date date = format.parse(when);
+                    new AlarmService().setAlarm(context, what, date);
+                    Log.d(TAG, date.toString());
+                } catch (ParseException e) {
+                    Log.e(TAG, e.toString());
+
+                }
 //                Toast.makeText(context, "Insert successful", Toast.LENGTH_SHORT).show();
-                Log.d(TAG, uri.toString());
             }
             return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
         }
     }
 }

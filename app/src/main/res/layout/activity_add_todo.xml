@@ -19,7 +19,11 @@
             android:id="@+id/what_edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/hint_what" />
+            android:hint="@string/hint_what"
+            android:maxLength="40"
+            android:maxLines="3"
+            android:minHeight="72dp"
+            android:textSize="22sp" />
 
         <DatePicker
             android:id="@+id/date_input"
