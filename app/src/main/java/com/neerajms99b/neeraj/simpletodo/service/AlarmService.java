@@ -51,14 +51,15 @@ public class AlarmService extends BroadcastReceiver {
         Intent intent = new Intent(context, AlarmService.class);
         intent.putExtra(context.getString(R.string.key_tag), context.getString(R.string.tag_show_notification));
         intent.putExtra(context.getString(R.string.key_what), todo);
-        pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+        int id = (int) System.currentTimeMillis();
+        pendingIntent = PendingIntent.getBroadcast(context, id, intent, PendingIntent.FLAG_ONE_SHOT);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         Log.d(TAG, calendar.getTime().toString());
         if (Build.VERSION.SDK_INT >= 19) {
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+            alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
         } else if (Build.VERSION.SDK_INT >= 15) {
-            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 0, pendingIntent);
+            alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
         }
     }
 
@@ -77,9 +78,10 @@ public class AlarmService extends BroadcastReceiver {
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
         stackBuilder.addParentStack(MainActivity.class);
         stackBuilder.addNextIntent(resultIntent);
+        int id = (int) System.currentTimeMillis();
         PendingIntent resultPendingIntent =
                 stackBuilder.getPendingIntent(
-                        0,
+                        id,
                         PendingIntent.FLAG_UPDATE_CURRENT
                 );
 
@@ -89,7 +91,6 @@ public class AlarmService extends BroadcastReceiver {
         builder.setColor(context.getResources().getColor(R.color.colorPrimary));
         NotificationManager notificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(Integer.parseInt(
-                context.getString(R.string.notification_id)), builder.build());
+        notificationManager.notify(id, builder.build());
     }
 }

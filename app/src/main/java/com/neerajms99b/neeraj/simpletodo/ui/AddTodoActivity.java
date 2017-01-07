@@ -57,7 +57,6 @@ public class AddTodoActivity extends AppCompatActivity {
                 }
                 String time = String.format("%02d", hour) + ":" + String.format("%02d", minute);
                 String dateTime = date + " " + time;
-
                 new InsertIntoDb().execute(todo, dateTime);
             }
         });
