@@ -11,5 +11,5 @@
     <string name="key_tag" translatable="false">tag</string>
     <string name="tag_show_notification" translatable="false">showNotification</string>
     <string name="notification_title">Todo</string>
-    <string name="notification_id" translatable="false">85</string>
+    <string name="key_notification_id" translatable="false">notificationId</string>
 </resources>

@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.RemoteInput;
 import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 
@@ -33,6 +34,7 @@ public class AlarmService extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         String tag = intent.getStringExtra(context.getString(R.string.key_tag));
         String what = intent.getStringExtra(context.getString(R.string.key_what));
+        int notifId = intent.getIntExtra(context.getString(R.string.key_notification_id), 0);
         PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "");
         Log.d(TAG, "Alarm triggered");
@@ -40,57 +42,74 @@ public class AlarmService extends BroadcastReceiver {
         if (tag.equals(context.getString(R.string.tag_show_notification))) {
             wakeLock.acquire();
 //            Log.d(TAG, "Alarm triggered");
-            showNotification(context, what);
+            showNotification(context, what, notifId);
             wakeLock.release();
         }
     }
 
-    public void setAlarm(Context context, String todo, Date date) {
+    public void setAlarm(Context context, String todo, Date date, int notifId) {
         Log.d(TAG, "Alarm set");
         alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmService.class);
         intent.putExtra(context.getString(R.string.key_tag), context.getString(R.string.tag_show_notification));
         intent.putExtra(context.getString(R.string.key_what), todo);
+        intent.putExtra(context.getString(R.string.key_notification_id), notifId);
         int id = (int) System.currentTimeMillis();
         pendingIntent = PendingIntent.getBroadcast(context, id, intent, PendingIntent.FLAG_ONE_SHOT);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         Log.d(TAG, calendar.getTime().toString());
-        if (Build.VERSION.SDK_INT >= 19) {
-            alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-        } else if (Build.VERSION.SDK_INT >= 15) {
-            alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-        }
+        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
     }
 
-    public void showNotification(Context context, String todoText) {
+    public void showNotification(Context context, String todoText, int notifId) {
         Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         long[] v = {100, 200};
+        String GROUP_KEY_TODO = "group_key_todo";
+        NotificationCompat.Builder builder;
 
-        NotificationCompat.Builder builder =
-                new NotificationCompat.Builder(context)
-                        .setSmallIcon(R.drawable.ic_action_add)
-                        .setContentTitle(context.getString(R.string.notification_title))
-                        .setContentText(todoText);
+        if (Build.VERSION.SDK_INT >= 20) {
+            RemoteInput remoteInput = new RemoteInput.Builder("key_mark_done")
+                    .setLabel("Done")
+                    .build();
+            Intent intent = new Intent(context, MarkDone.class);
+            intent.putExtra(context.getString(R.string.key_notification_id),notifId);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, notifId, intent, PendingIntent.FLAG_ONE_SHOT);
+            NotificationCompat.Action action =
+                    new NotificationCompat.Action.Builder(R.drawable.ic_action_done,
+                            "Done", pendingIntent)
+                            .addRemoteInput(remoteInput)
+                            .build();
+            builder = new NotificationCompat.Builder(context)
+                    .setSmallIcon(R.drawable.ic_action_add)
+                    .setContentTitle(context.getString(R.string.notification_title))
+                    .addAction(action)
+                    .setContentText(todoText);
+        } else {
+            builder = new NotificationCompat.Builder(context)
+                    .setSmallIcon(R.drawable.ic_action_add)
+                    .setContentTitle(context.getString(R.string.notification_title))
+                    .setContentText(todoText);
+        }
 
         Intent resultIntent = new Intent(context, MainActivity.class);
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
         stackBuilder.addParentStack(MainActivity.class);
         stackBuilder.addNextIntent(resultIntent);
-        int id = (int) System.currentTimeMillis();
         PendingIntent resultPendingIntent =
                 stackBuilder.getPendingIntent(
-                        id,
+                        notifId,
                         PendingIntent.FLAG_UPDATE_CURRENT
                 );
 
         builder.setContentIntent(resultPendingIntent);
         builder.setSound(uri);
         builder.setVibrate(v);
+        builder.setAutoCancel(true);
         builder.setColor(context.getResources().getColor(R.color.colorPrimary));
         NotificationManager notificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(id, builder.build());
+        notificationManager.notify(notifId, builder.build());
     }
 }

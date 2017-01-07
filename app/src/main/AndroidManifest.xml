@@ -29,6 +29,8 @@
             android:authorities="com.neerajms99b.neeraj.simpletodo.data" />
 
         <receiver android:name=".service.AlarmService" />
+
+        <receiver android:name=".service.MarkDone" />
     </application>
 
 </manifest>

@@ -15,11 +15,13 @@ public class TodoDbHelper extends SQLiteOpenHelper {
     private static final String KEY_ID = "_id";
     private static final String COLUMN_WHAT = "whattodo";
     private static final String COLUMN_WHEN = "whentodo";
+    private static final String COLUMN_NOTIFICATION_ID = "notifid";
 
     private static final String CREATE_TODO_TABLE = "CREATE TABLE " + TABLE_NAME_TODO
             + " (" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + COLUMN_WHAT + " TEXT, "
-            + COLUMN_WHEN + " TEXT);";
+            + COLUMN_WHEN + " TEXT, "
+            + COLUMN_NOTIFICATION_ID + " INTEGER);";
 
     public TodoDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

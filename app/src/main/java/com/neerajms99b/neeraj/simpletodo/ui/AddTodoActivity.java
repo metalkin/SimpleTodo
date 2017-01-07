@@ -67,15 +67,17 @@ public class AddTodoActivity extends AppCompatActivity {
         protected Void doInBackground(String... strings) {
             String what = strings[0];
             String when = strings[1];
+            int notifId = (int) System.currentTimeMillis();
             ContentValues contentValues = new ContentValues();
             contentValues.put(TodoContentProvider.COLUMN_WHAT, what);
             contentValues.put(TodoContentProvider.COLUMN_WHEN, when);
+            contentValues.put(TodoContentProvider.COLUMN_NOTIFICATION_ID, notifId);
             Uri uri = getContentResolver().insert(TodoContentProvider.uriTodo, contentValues);
             if (uri != null) {
                 SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm");
                 try {
                     Date date = format.parse(when);
-                    new AlarmService().setAlarm(context, what, date);
+                    new AlarmService().setAlarm(context, what, date, notifId);
                     Log.d(TAG, date.toString());
                 } catch (ParseException e) {
                     Log.e(TAG, e.toString());
