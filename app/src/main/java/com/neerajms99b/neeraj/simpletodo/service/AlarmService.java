@@ -1,7 +1,6 @@
 package com.neerajms99b.neeraj.simpletodo.service;
 
 import android.app.AlarmManager;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -11,7 +10,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.RemoteInput;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 
@@ -69,28 +68,35 @@ public class AlarmService extends BroadcastReceiver {
         NotificationCompat.Builder builder;
 
         if (Build.VERSION.SDK_INT >= 20) {
-            RemoteInput remoteInput = new RemoteInput.Builder("key_mark_done")
-                    .setLabel("Done")
-                    .build();
             Intent intent = new Intent(context, MarkDone.class);
-            intent.putExtra(context.getString(R.string.key_notification_id),notifId);
+            intent.putExtra(context.getString(R.string.key_notification_id), notifId);
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, notifId, intent, PendingIntent.FLAG_ONE_SHOT);
             NotificationCompat.Action action =
                     new NotificationCompat.Action.Builder(R.drawable.ic_action_done,
                             "Done", pendingIntent)
-                            .addRemoteInput(remoteInput)
                             .build();
-            builder = new NotificationCompat.Builder(context)
-                    .setSmallIcon(R.drawable.ic_action_add)
-                    .setContentTitle(context.getString(R.string.notification_title))
-                    .addAction(action)
-                    .setContentText(todoText);
+            if (Build.VERSION.SDK_INT >= 24) {
+                builder = new NotificationCompat.Builder(context)
+                        .setSmallIcon(R.drawable.ic_action_add)
+                        .setContentTitle(context.getString(R.string.notification_title))
+                        .addAction(action)
+                        .setGroup(GROUP_KEY_TODO)
+                        .setGroupSummary(true)
+                        .setContentText(todoText);
+            } else {
+                builder = new NotificationCompat.Builder(context)
+                        .setSmallIcon(R.drawable.ic_action_add)
+                        .setContentTitle(context.getString(R.string.notification_title))
+                        .addAction(action)
+                        .setContentText(todoText);
+            }
         } else {
             builder = new NotificationCompat.Builder(context)
                     .setSmallIcon(R.drawable.ic_action_add)
                     .setContentTitle(context.getString(R.string.notification_title))
                     .setContentText(todoText);
         }
+
 
         Intent resultIntent = new Intent(context, MainActivity.class);
 
@@ -108,8 +114,7 @@ public class AlarmService extends BroadcastReceiver {
         builder.setVibrate(v);
         builder.setAutoCancel(true);
         builder.setColor(context.getResources().getColor(R.color.colorPrimary));
-        NotificationManager notificationManager =
-                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
         notificationManager.notify(notifId, builder.build());
     }
 }

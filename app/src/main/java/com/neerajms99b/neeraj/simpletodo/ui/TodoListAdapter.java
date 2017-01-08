@@ -5,7 +5,9 @@ import android.os.Build;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.neerajms99b.neeraj.simpletodo.R;
@@ -25,25 +27,37 @@ public class TodoListAdapter extends CursorRecyclerViewAdapter<TodoListAdapter.V
         callBack = mainActivityFragment;
     }
 
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
         TextView todoText;
         TextView dateTime;
+        ImageView button;
 
-        public ViewHolder(CardView cardView, TextView todoText, TextView dateTime) {
+        public ViewHolder(CardView cardView, TextView todoText, TextView dateTime, ImageView button) {
             super(cardView);
             this.cardView = cardView;
             this.todoText = todoText;
             this.dateTime = dateTime;
+            this.button = button;
         }
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, Cursor cursor, int position) {
+    public void onBindViewHolder(ViewHolder viewHolder, final Cursor cursor, final int position) {
         viewHolder.todoText.setText(cursor.getString(
                 cursor.getColumnIndex(TodoContentProvider.COLUMN_WHAT)));
         viewHolder.dateTime.setText(cursor.getString(
                 cursor.getColumnIndex(TodoContentProvider.COLUMN_WHEN)));
+        viewHolder.button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cursor.moveToPosition(position);
+                int id = Integer.parseInt(cursor.getString(cursor.getColumnIndex(TodoContentProvider.KEY_ID)));
+                notifyItemRemoved(position);
+                callBack.doneClicked(id);
+            }
+        });
     }
 
     @Override
@@ -69,7 +83,8 @@ public class TodoListAdapter extends CursorRecyclerViewAdapter<TodoListAdapter.V
         cardView.setLayoutParams(layoutParams);
         TextView todoTextView = (TextView) cardView.findViewById(R.id.todo_description);
         TextView dateTimeTextView = (TextView) cardView.findViewById(R.id.todo_datetime);
-        ViewHolder viewHolder = new ViewHolder(cardView, todoTextView, dateTimeTextView);
+        ImageView button = (ImageView) cardView.findViewById(R.id.done_button);
+        ViewHolder viewHolder = new ViewHolder(cardView, todoTextView, dateTimeTextView, button);
         return viewHolder;
     }
 
@@ -80,5 +95,4 @@ public class TodoListAdapter extends CursorRecyclerViewAdapter<TodoListAdapter.V
         }
         return 0;
     }
-
 }

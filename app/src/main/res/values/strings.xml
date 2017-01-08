@@ -12,4 +12,5 @@
     <string name="tag_show_notification" translatable="false">showNotification</string>
     <string name="notification_title">Todo</string>
     <string name="key_notification_id" translatable="false">notificationId</string>
+    <string name="key_intent_filter_mark_done" translatable="false">markDoneIntentFilter</string>
 </resources>

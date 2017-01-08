@@ -1,6 +1,10 @@
 package com.neerajms99b.neeraj.simpletodo.ui;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -8,9 +12,11 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.neerajms99b.neeraj.simpletodo.R;
 import com.neerajms99b.neeraj.simpletodo.data.TodoContentProvider;
@@ -54,5 +60,23 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         todoListAdapter.swapCursor(null);
+    }
+
+    public BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+        }
+    };
+
+    public void doneClicked(int position) {
+//        position = position + 1;
+        Log.d("mainactfrag:", String.valueOf(position));
+        Uri uri = Uri.parse(TodoContentProvider.uriTodo.toString() + "/" + position);
+        getContext().getContentResolver().delete(uri, null, null);
+//        todoListAdapter.swapCursor(null);
+        getLoaderManager().restartLoader(CURSOR_LOADER_ID, null, this);
+        todoListAdapter.notifyDataSetChanged();
+        Toast.makeText(getContext(), "Done with it", Toast.LENGTH_SHORT).show();
     }
 }
