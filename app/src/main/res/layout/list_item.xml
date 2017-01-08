@@ -15,6 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_8dp"
+            android:textColor="@android:color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -29,16 +30,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_8dp"
                 android:layout_weight="1"
+                android:textStyle="italic"
                 android:textSize="18sp" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/done_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:layout_weight="0"
                 android:background="?android:selectableItemBackground"
-                android:src="@drawable/ic_action_done" />
+                android:src="@drawable/ic_action_done_teal" />
 
         </LinearLayout>
 
