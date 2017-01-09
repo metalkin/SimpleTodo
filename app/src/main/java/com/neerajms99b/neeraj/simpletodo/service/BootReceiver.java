@@ -33,7 +33,7 @@ public class BootReceiver extends BroadcastReceiver {
             do {
                 String dateStr = cursor.getString(cursor.getColumnIndex(TodoContentProvider.COLUMN_WHEN));
                 String todo = cursor.getString(cursor.getColumnIndex(TodoContentProvider.COLUMN_WHAT));
-                int notifId = cursor.getInt(cursor.getColumnIndex(TodoContentProvider.COLUMN_NOTIFICATION_ID));
+                int notifId = cursor.getInt(cursor.getColumnIndex(TodoContentProvider.KEY_ID));
                 Date compareDate = getDate(dateStr);
                 if (compareDate.after(currentDateTime)) {
                     Log.d(TAG + " Todo", "inside if");

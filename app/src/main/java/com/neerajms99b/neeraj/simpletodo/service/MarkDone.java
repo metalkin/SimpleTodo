@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.neerajms99b.neeraj.simpletodo.R;
@@ -22,7 +23,11 @@ public class MarkDone extends BroadcastReceiver {
         NotificationManager notificationManager = (NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancel(notifId);
-        Uri uri = Uri.parse(TodoContentProvider.uriTodo.toString() + "/notifid/" + notifId);
+        Uri uri = Uri.parse(TodoContentProvider.uriTodo.toString() + "/" + notifId);
         context.getContentResolver().delete(uri, null, null);
+        Intent broadcastIntent = new Intent();
+        intent.setAction(context.getString(R.string.key_intent_filter_mark_done));
+        intent.putExtra(context.getString(R.string.key_notification_id),notifId);
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 }

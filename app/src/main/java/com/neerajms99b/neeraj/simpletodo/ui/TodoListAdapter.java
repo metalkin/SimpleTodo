@@ -64,12 +64,16 @@ public class TodoListAdapter extends CursorRecyclerViewAdapter<TodoListAdapter.V
         String dateCompare = tokenizer.nextToken();
         String time = tokenizer.nextToken();
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        String dateDisplay = dateCompare;
         try {
-            Date dateObj = timeFormat.parse(time);
-            time = new SimpleDateFormat("hh:mm aa").format(dateObj);
+            Date timeObj = timeFormat.parse(time);
+            time = new SimpleDateFormat("hh:mm aa").format(timeObj);
+            Date dateObj = format.parse(dateCompare);
+            dateDisplay = new SimpleDateFormat("d MMM yyyy").format(dateObj);
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
 
         if (dateToday.equals(dateCompare)) {
             dateTime = "Today" + " " + time;
@@ -90,7 +94,7 @@ public class TodoListAdapter extends CursorRecyclerViewAdapter<TodoListAdapter.V
                         callBack.getResources().getColor(R.color.tomorrowColor));
             }
         } else {
-            dateTime = dateCompare + " " + time;
+            dateTime = dateDisplay + " " + time;
             if (Build.VERSION.SDK_INT >= 23) {
                 viewHolder.dateTime.setTextColor(
                         callBack.getResources().getColor(R.color.dateColor, null));
@@ -108,8 +112,8 @@ public class TodoListAdapter extends CursorRecyclerViewAdapter<TodoListAdapter.V
             public void onClick(View view) {
                 cursor.moveToPosition(position);
                 int id = Integer.parseInt(cursor.getString(cursor.getColumnIndex(TodoContentProvider.KEY_ID)));
-                notifyItemRemoved(position);
                 callBack.doneClicked(id);
+                notifyItemRemoved(id);
             }
         });
     }

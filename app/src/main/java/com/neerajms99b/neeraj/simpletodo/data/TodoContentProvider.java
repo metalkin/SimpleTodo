@@ -23,7 +23,6 @@ public class TodoContentProvider extends ContentProvider {
     public static final String KEY_ID = "_id";
     public static final String COLUMN_WHAT = "whattodo";
     public static final String COLUMN_WHEN = "whentodo";
-    public static final String COLUMN_NOTIFICATION_ID = "notifid";
 
     private static final UriMatcher uriMatcher;
 
@@ -31,7 +30,6 @@ public class TodoContentProvider extends ContentProvider {
         uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
         uriMatcher.addURI(AUTHORITY, TABLE_NAME_TODO, 1);
         uriMatcher.addURI(AUTHORITY, TABLE_NAME_TODO + "/#", 2);
-        uriMatcher.addURI(AUTHORITY, TABLE_NAME_TODO + "/notifid/#", 3);
     }
 
     @Override
@@ -86,9 +84,6 @@ public class TodoContentProvider extends ContentProvider {
         switch (uriMatcher.match(uri)) {
             case 2:
                 whereClause = KEY_ID + "=" + uri.getLastPathSegment();
-                break;
-            case 3:
-                whereClause = COLUMN_NOTIFICATION_ID + "=" + uri.getLastPathSegment();
                 break;
             default:
                 return 0;
