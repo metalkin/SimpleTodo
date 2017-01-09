@@ -16,4 +16,8 @@
     <string name="key_intent_filter_mark_done" translatable="false">markDoneIntentFilter</string>
     <string name="hint_date">date?</string>
     <string name="hint_time">time?</string>
+    <string name="done_label">Done</string>
+    <string name="done_toast">Done with it!</string>
+    <string name="today_label">Today</string>
+    <string name="tomorrow_label">Tomorrow</string>
 </resources>

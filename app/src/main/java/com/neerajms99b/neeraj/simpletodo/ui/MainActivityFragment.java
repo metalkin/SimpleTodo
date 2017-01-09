@@ -17,7 +17,6 @@ import android.support.v4.content.Loader;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,7 +81,6 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(getString(R.string.key_intent_filter_mark_done))) {
-                Log.d(TAG, "broadcast recieved");
                 int position = intent.getIntExtra(context.getString(R.string.key_notification_id), 0);
                 todoListAdapter.notifyItemRemoved(position);
                 getLoaderManager().restartLoader(CURSOR_LOADER_ID, null, fragment);
@@ -98,14 +96,8 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
     }
 
     public void doneClicked(int position) {
-//        position = position + 1;
-        Log.d("mainactfrag:", String.valueOf(position));
         Uri uri = Uri.parse(TodoContentProvider.uriTodo.toString() + "/" + position);
         cancelAlarm(position);
-//        PendingIntent pendingIntent =
-//                PendingIntent.getBroadcast(getContext(), position, intent, PendingIntent.FLAG_ONE_SHOT);
-//        AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
-//        alarmManager.cancel(pendingIntent);
         new AsyncTask<Uri, Void, Void>() {
             @Override
             protected Void doInBackground(Uri... uris) {
@@ -118,7 +110,7 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
                 super.onPostExecute(aVoid);
                 getLoaderManager().restartLoader(CURSOR_LOADER_ID, null, fragment);
                 todoListAdapter.notifyDataSetChanged();
-                Toast.makeText(fragment.getContext(), "Done with it", Toast.LENGTH_SHORT).show();
+                Toast.makeText(fragment.getContext(), getString(R.string.done_toast), Toast.LENGTH_SHORT).show();
             }
         }.execute(uri);
     }

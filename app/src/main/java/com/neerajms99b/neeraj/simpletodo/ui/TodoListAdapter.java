@@ -53,30 +53,18 @@ public class TodoListAdapter extends CursorRecyclerViewAdapter<TodoListAdapter.V
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final Cursor cursor, final int position) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Calendar calendar = Calendar.getInstance();
-        String dateToday = format.format(calendar.getTime());
-        calendar.add(Calendar.DATE, 1);
-        String dateTomorrow = format.format(calendar.getTime());
+        String dateToday = getDateToday();
+        String dateTomorrow = getDateTomorrow();
         String dateTime = cursor.getString(
                 cursor.getColumnIndex(TodoContentProvider.COLUMN_WHEN));
         StringTokenizer tokenizer = new StringTokenizer(dateTime, " ");
         String dateCompare = tokenizer.nextToken();
         String time = tokenizer.nextToken();
-        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-        String dateDisplay = dateCompare;
-        try {
-            Date timeObj = timeFormat.parse(time);
-            time = new SimpleDateFormat("hh:mm aa").format(timeObj);
-            Date dateObj = format.parse(dateCompare);
-            dateDisplay = new SimpleDateFormat("d MMM yyyy").format(dateObj);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
+        String timeDisplay = getTimeDisplay(time);
+        String dateDisplay = getDateDisplay(dateCompare);
 
         if (dateToday.equals(dateCompare)) {
-            dateTime = "Today" + " " + time;
+            dateTime = callBack.getString(R.string.today_label) + " " + timeDisplay;
             if (Build.VERSION.SDK_INT >= 23) {
                 viewHolder.dateTime.setTextColor(
                         callBack.getResources().getColor(R.color.todayColor, null));
@@ -85,7 +73,7 @@ public class TodoListAdapter extends CursorRecyclerViewAdapter<TodoListAdapter.V
                         callBack.getResources().getColor(R.color.todayColor));
             }
         } else if (dateTomorrow.equals(dateCompare)) {
-            dateTime = "Tomorrow" + " " + time;
+            dateTime = callBack.getString(R.string.tomorrow_label) + " " + timeDisplay;
             if (Build.VERSION.SDK_INT >= 23) {
                 viewHolder.dateTime.setTextColor(
                         callBack.getResources().getColor(R.color.tomorrowColor, null));
@@ -94,7 +82,7 @@ public class TodoListAdapter extends CursorRecyclerViewAdapter<TodoListAdapter.V
                         callBack.getResources().getColor(R.color.tomorrowColor));
             }
         } else {
-            dateTime = dateDisplay + " " + time;
+            dateTime = dateDisplay + " " + timeDisplay;
             if (Build.VERSION.SDK_INT >= 23) {
                 viewHolder.dateTime.setTextColor(
                         callBack.getResources().getColor(R.color.dateColor, null));
@@ -144,8 +132,7 @@ public class TodoListAdapter extends CursorRecyclerViewAdapter<TodoListAdapter.V
         TextView todoTextView = (TextView) cardView.findViewById(R.id.todo_description);
         TextView dateTimeTextView = (TextView) cardView.findViewById(R.id.todo_datetime);
         ImageButton button = (ImageButton) cardView.findViewById(R.id.done_button);
-        ViewHolder viewHolder = new ViewHolder(cardView, todoTextView, dateTimeTextView, button);
-        return viewHolder;
+        return new ViewHolder(cardView, todoTextView, dateTimeTextView, button);
     }
 
     @Override
@@ -156,5 +143,40 @@ public class TodoListAdapter extends CursorRecyclerViewAdapter<TodoListAdapter.V
             return LAST_CARD;
         }
         return 0;
+    }
+
+    public String getDateToday() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar = Calendar.getInstance();
+        return format.format(calendar.getTime());
+    }
+
+    public String getDateTomorrow() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, 1);
+        return format.format(calendar.getTime());
+    }
+
+    public String getDateDisplay(String dateCompare) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date dateObj = format.parse(dateCompare);
+            return new SimpleDateFormat("d MMM yyyy").format(dateObj);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public String getTimeDisplay(String time) {
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        try {
+            Date timeObj = timeFormat.parse(time);
+            return new SimpleDateFormat("hh:mm aa").format(timeObj);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

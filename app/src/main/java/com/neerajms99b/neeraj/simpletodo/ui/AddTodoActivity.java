@@ -50,18 +50,6 @@ public class AddTodoActivity extends AppCompatActivity {
             }
         });
 
-//        timeTextView.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View view, MotionEvent motionEvent) {
-//                if (view.getId() == timeTextView.getId()) {
-//                    defineTimeSetListener();
-//                    setTime();
-//                    return true;
-//                }
-//                return false;
-//            }
-//        });
-
         dateTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

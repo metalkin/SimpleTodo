@@ -44,7 +44,6 @@ public class AlarmService extends BroadcastReceiver {
     }
 
     public void setAlarm(Context context, String todo, Date date, int notifId) {
-        Log.d(TAG, "Alarm set");
         alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmService.class);
         intent.putExtra(context.getString(R.string.key_tag), context.getString(R.string.tag_show_notification));
@@ -69,7 +68,7 @@ public class AlarmService extends BroadcastReceiver {
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, notifId, intent, PendingIntent.FLAG_ONE_SHOT);
             NotificationCompat.Action action =
                     new NotificationCompat.Action.Builder(R.drawable.ic_action_done,
-                            "Done", pendingIntent)
+                            context.getString(R.string.done_label), pendingIntent)
                             .build();
             if (Build.VERSION.SDK_INT >= 24) {
                 builder = new NotificationCompat.Builder(context)
@@ -92,7 +91,6 @@ public class AlarmService extends BroadcastReceiver {
                     .setContentTitle(context.getString(R.string.notification_title))
                     .setContentText(todoText);
         }
-
 
         Intent resultIntent = new Intent(context, MainActivity.class);
 

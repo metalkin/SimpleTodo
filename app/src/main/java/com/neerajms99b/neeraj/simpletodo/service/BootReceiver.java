@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.util.Log;
 
 import com.neerajms99b.neeraj.simpletodo.data.TodoContentProvider;
 
@@ -22,7 +21,6 @@ public class BootReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.d(TAG + " Todo", "boot receiver");
         AlarmService alarmService = new AlarmService();
         Cursor cursor = context.getContentResolver()
                 .query(TodoContentProvider.uriTodo, null, null, null, null);
@@ -36,7 +34,6 @@ public class BootReceiver extends BroadcastReceiver {
                 int notifId = cursor.getInt(cursor.getColumnIndex(TodoContentProvider.KEY_ID));
                 Date compareDate = getDate(dateStr);
                 if (compareDate.after(currentDateTime)) {
-                    Log.d(TAG + " Todo", "inside if");
                     alarmService.setAlarm(context, todo, compareDate, notifId);
                 }
             } while (cursor.moveToNext());
