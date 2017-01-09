@@ -19,21 +19,31 @@
             android:id="@+id/what_edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:hint="@string/hint_what"
+            android:layout_marginTop="32dp"
             android:maxLength="40"
-            android:maxLines="3"
-            android:minHeight="72dp"
+            android:maxLines="1"
+            android:minHeight="48dp"
             android:textSize="22sp" />
 
-        <DatePicker
+        <TextView
             android:id="@+id/date_input"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_date"
+            android:maxLines="1"
+            android:minHeight="48dp"
+            android:textSize="22sp" />
 
-        <TimePicker
+        <TextView
             android:id="@+id/time_input"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_time"
+            android:maxLines="1"
+            android:minHeight="48dp"
+            android:textSize="22sp" />
 
         <Button
             android:id="@+id/button_add"

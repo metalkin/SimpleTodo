@@ -112,8 +112,8 @@ public class TodoListAdapter extends CursorRecyclerViewAdapter<TodoListAdapter.V
             public void onClick(View view) {
                 cursor.moveToPosition(position);
                 int id = Integer.parseInt(cursor.getString(cursor.getColumnIndex(TodoContentProvider.KEY_ID)));
-                callBack.doneClicked(id);
                 notifyItemRemoved(id);
+                callBack.doneClicked(id);
             }
         });
     }

@@ -13,4 +13,6 @@
     <string name="notification_title">Todo</string>
     <string name="key_notification_id" translatable="false">notificationId</string>
     <string name="key_intent_filter_mark_done" translatable="false">markDoneIntentFilter</string>
+    <string name="hint_date">date?</string>
+    <string name="hint_time">time?</string>
 </resources>

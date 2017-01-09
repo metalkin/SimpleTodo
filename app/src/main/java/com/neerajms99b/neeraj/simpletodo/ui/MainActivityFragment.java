@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -97,10 +98,20 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
 //        position = position + 1;
         Log.d("mainactfrag:", String.valueOf(position));
         Uri uri = Uri.parse(TodoContentProvider.uriTodo.toString() + "/" + position);
-        getContext().getContentResolver().delete(uri, null, null);
-//        todoListAdapter.swapCursor(null);
-        getLoaderManager().restartLoader(CURSOR_LOADER_ID, null, this);
-        todoListAdapter.notifyDataSetChanged();
-        Toast.makeText(getContext(), "Done with it", Toast.LENGTH_SHORT).show();
+        new AsyncTask<Uri, Void, Void>() {
+            @Override
+            protected Void doInBackground(Uri... uris) {
+                getContext().getContentResolver().delete(uris[0], null, null);
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                getLoaderManager().restartLoader(CURSOR_LOADER_ID, null, fragment);
+                todoListAdapter.notifyDataSetChanged();
+                Toast.makeText(fragment.getContext(), "Done with it", Toast.LENGTH_SHORT).show();
+            }
+        }.execute(uri);
     }
 }
