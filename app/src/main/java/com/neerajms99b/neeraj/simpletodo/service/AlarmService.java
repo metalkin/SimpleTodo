@@ -77,7 +77,7 @@ public class AlarmService extends BroadcastReceiver {
                             .build();
             if (Build.VERSION.SDK_INT >= 24) {
                 builder = new NotificationCompat.Builder(context)
-                        .setSmallIcon(R.drawable.ic_action_add)
+                        .setSmallIcon(R.drawable.ic_action_done)
                         .setContentTitle(context.getString(R.string.notification_title))
                         .addAction(action)
                         .setGroup(GROUP_KEY_TODO)
@@ -85,14 +85,14 @@ public class AlarmService extends BroadcastReceiver {
                         .setContentText(todoText);
             } else {
                 builder = new NotificationCompat.Builder(context)
-                        .setSmallIcon(R.drawable.ic_action_add)
+                        .setSmallIcon(R.drawable.ic_action_done)
                         .setContentTitle(context.getString(R.string.notification_title))
                         .addAction(action)
                         .setContentText(todoText);
             }
         } else {
             builder = new NotificationCompat.Builder(context)
-                    .setSmallIcon(R.drawable.ic_action_add)
+                    .setSmallIcon(R.drawable.ic_action_done)
                     .setContentTitle(context.getString(R.string.notification_title))
                     .setContentText(todoText);
         }
