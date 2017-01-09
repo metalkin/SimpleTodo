@@ -46,7 +46,7 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new CursorLoader(getActivity(), TodoContentProvider.uriTodo, null, null, null, null);
+        return new CursorLoader(getActivity(), TodoContentProvider.uriTodo, null, null, null,TodoContentProvider.COLUMN_WHEN+" ASC");
     }
 
     @Override

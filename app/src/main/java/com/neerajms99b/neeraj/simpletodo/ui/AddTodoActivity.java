@@ -43,9 +43,12 @@ public class AddTodoActivity extends AppCompatActivity {
                 int day = datePicker.getDayOfMonth();
                 int month = datePicker.getMonth() + 1;
                 int year = datePicker.getYear();
-                String date = String.format("%02d", day) + "-"
-                        + String.format("%02d", month) + "-"
-                        + String.format("%04d", year);
+//                String date = String.format("%02d", day) + "-"
+//                        + String.format("%02d", month) + "-"
+//                        + String.format("%04d", year);
+                String date = String.format("%04d", year) +"-"
+                        +String.format("%02d", month) + "-"
+                        +String.format("%02d", day);
                 int hour;
                 int minute;
                 if (Build.VERSION.SDK_INT >= 23) {
@@ -74,7 +77,7 @@ public class AddTodoActivity extends AppCompatActivity {
             contentValues.put(TodoContentProvider.COLUMN_NOTIFICATION_ID, notifId);
             Uri uri = getContentResolver().insert(TodoContentProvider.uriTodo, contentValues);
             if (uri != null) {
-                SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                 try {
                     Date date = format.parse(when);
                     new AlarmService().setAlarm(context, what, date, notifId);

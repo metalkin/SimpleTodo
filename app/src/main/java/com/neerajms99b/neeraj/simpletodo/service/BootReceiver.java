@@ -46,7 +46,7 @@ public class BootReceiver extends BroadcastReceiver {
 
     private Date getDate(String dateStr) {
         Date date = null;
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         try {
             date = dateFormat.parse(dateStr);
         } catch (ParseException e) {

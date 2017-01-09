@@ -53,7 +53,7 @@ public class TodoListAdapter extends CursorRecyclerViewAdapter<TodoListAdapter.V
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final Cursor cursor, final int position) {
-        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Calendar calendar = Calendar.getInstance();
         String dateToday = format.format(calendar.getTime());
         calendar.add(Calendar.DATE, 1);
