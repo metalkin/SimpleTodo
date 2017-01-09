@@ -32,15 +32,12 @@ public class AlarmService extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         String tag = intent.getStringExtra(context.getString(R.string.key_tag));
-        String what = intent.getStringExtra(context.getString(R.string.key_what));
-        int notifId = intent.getIntExtra(context.getString(R.string.key_notification_id), 0);
-        PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-        PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "");
-        Log.d(TAG, "Alarm triggered");
-
         if (tag.equals(context.getString(R.string.tag_show_notification))) {
+            PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+            PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "");
+            String what = intent.getStringExtra(context.getString(R.string.key_what));
+            int notifId = intent.getIntExtra(context.getString(R.string.key_notification_id), 0);
             wakeLock.acquire();
-//            Log.d(TAG, "Alarm triggered");
             showNotification(context, what, notifId);
             wakeLock.release();
         }
@@ -53,8 +50,7 @@ public class AlarmService extends BroadcastReceiver {
         intent.putExtra(context.getString(R.string.key_tag), context.getString(R.string.tag_show_notification));
         intent.putExtra(context.getString(R.string.key_what), todo);
         intent.putExtra(context.getString(R.string.key_notification_id), notifId);
-        int id = (int) System.currentTimeMillis();
-        pendingIntent = PendingIntent.getBroadcast(context, id, intent, PendingIntent.FLAG_ONE_SHOT);
+        pendingIntent = PendingIntent.getBroadcast(context, notifId, intent, PendingIntent.FLAG_ONE_SHOT);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         Log.d(TAG, calendar.getTime().toString());

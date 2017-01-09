@@ -1,5 +1,7 @@
 package com.neerajms99b.neeraj.simpletodo.ui;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -23,6 +25,7 @@ import android.widget.Toast;
 
 import com.neerajms99b.neeraj.simpletodo.R;
 import com.neerajms99b.neeraj.simpletodo.data.TodoContentProvider;
+import com.neerajms99b.neeraj.simpletodo.service.AlarmService;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -98,6 +101,11 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
 //        position = position + 1;
         Log.d("mainactfrag:", String.valueOf(position));
         Uri uri = Uri.parse(TodoContentProvider.uriTodo.toString() + "/" + position);
+        cancelAlarm(position);
+//        PendingIntent pendingIntent =
+//                PendingIntent.getBroadcast(getContext(), position, intent, PendingIntent.FLAG_ONE_SHOT);
+//        AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
+//        alarmManager.cancel(pendingIntent);
         new AsyncTask<Uri, Void, Void>() {
             @Override
             protected Void doInBackground(Uri... uris) {
@@ -114,4 +122,13 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
             }
         }.execute(uri);
     }
+
+    public void cancelAlarm(int notifId) {
+        Intent intent = new Intent(getContext(), AlarmService.class);
+        PendingIntent pendingIntent =
+                PendingIntent.getBroadcast(getContext(), notifId, intent, PendingIntent.FLAG_ONE_SHOT);
+        AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
+        alarmManager.cancel(pendingIntent);
+    }
+
 }

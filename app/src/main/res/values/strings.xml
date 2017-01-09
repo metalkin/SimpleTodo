@@ -10,6 +10,7 @@
     <string name="key_when" translatable="false">whenTodo</string>
     <string name="key_tag" translatable="false">tag</string>
     <string name="tag_show_notification" translatable="false">showNotification</string>
+    <string name="tag_cancel_alarm" translatable="false">cancelAlarm</string>
     <string name="notification_title">Todo</string>
     <string name="key_notification_id" translatable="false">notificationId</string>
     <string name="key_intent_filter_mark_done" translatable="false">markDoneIntentFilter</string>
