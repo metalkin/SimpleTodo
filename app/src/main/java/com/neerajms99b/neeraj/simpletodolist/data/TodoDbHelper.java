@@ -1,4 +1,4 @@
-package com.neerajms99b.neeraj.simpletodo.data;
+package com.neerajms99b.neeraj.simpletodolist.data;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

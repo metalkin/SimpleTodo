@@ -1,4 +1,4 @@
-package com.neerajms99b.neeraj.simpletodo.service;
+package com.neerajms99b.neeraj.simpletodolist.service;
 
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
@@ -7,8 +7,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.content.LocalBroadcastManager;
 
-import com.neerajms99b.neeraj.simpletodo.R;
-import com.neerajms99b.neeraj.simpletodo.data.TodoContentProvider;
+import com.neerajms99b.neeraj.simpletodolist.R;
+import com.neerajms99b.neeraj.simpletodolist.data.TodoContentProvider;
 
 /**
  * Created by neeraj on 7/1/17.

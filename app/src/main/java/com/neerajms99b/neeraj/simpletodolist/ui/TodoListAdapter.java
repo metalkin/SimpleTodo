@@ -1,4 +1,4 @@
-package com.neerajms99b.neeraj.simpletodo.ui;
+package com.neerajms99b.neeraj.simpletodolist.ui;
 
 import android.database.Cursor;
 import android.os.Build;
@@ -11,8 +11,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.neerajms99b.neeraj.simpletodo.R;
-import com.neerajms99b.neeraj.simpletodo.data.TodoContentProvider;
+import com.neerajms99b.neeraj.simpletodolist.R;
+import com.neerajms99b.neeraj.simpletodolist.data.TodoContentProvider;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

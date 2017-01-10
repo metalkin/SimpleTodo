@@ -1,4 +1,4 @@
-package com.neerajms99b.neeraj.simpletodo;
+package com.neerajms99b.neeraj.simpletodolist;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

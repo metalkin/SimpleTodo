@@ -1,4 +1,4 @@
-package com.neerajms99b.neeraj.simpletodo.service;
+package com.neerajms99b.neeraj.simpletodolist.service;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -14,8 +14,8 @@ import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 
-import com.neerajms99b.neeraj.simpletodo.R;
-import com.neerajms99b.neeraj.simpletodo.ui.MainActivity;
+import com.neerajms99b.neeraj.simpletodolist.R;
+import com.neerajms99b.neeraj.simpletodolist.ui.MainActivity;
 
 import java.util.Calendar;
 import java.util.Date;

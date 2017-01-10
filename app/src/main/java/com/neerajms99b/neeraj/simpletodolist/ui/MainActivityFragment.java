@@ -1,4 +1,4 @@
-package com.neerajms99b.neeraj.simpletodo.ui;
+package com.neerajms99b.neeraj.simpletodolist.ui;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -22,9 +22,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.neerajms99b.neeraj.simpletodo.R;
-import com.neerajms99b.neeraj.simpletodo.data.TodoContentProvider;
-import com.neerajms99b.neeraj.simpletodo.service.AlarmService;
+import com.neerajms99b.neeraj.simpletodolist.R;
+import com.neerajms99b.neeraj.simpletodolist.data.TodoContentProvider;
+import com.neerajms99b.neeraj.simpletodolist.service.AlarmService;
 
 /**
  * A placeholder fragment containing a simple view.

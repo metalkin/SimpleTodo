@@ -1,4 +1,4 @@
-package com.neerajms99b.neeraj.simpletodo.ui;
+package com.neerajms99b.neeraj.simpletodolist.ui;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -16,9 +16,9 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.neerajms99b.neeraj.simpletodo.R;
-import com.neerajms99b.neeraj.simpletodo.data.TodoContentProvider;
-import com.neerajms99b.neeraj.simpletodo.service.AlarmService;
+import com.neerajms99b.neeraj.simpletodolist.R;
+import com.neerajms99b.neeraj.simpletodolist.data.TodoContentProvider;
+import com.neerajms99b.neeraj.simpletodolist.service.AlarmService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

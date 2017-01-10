@@ -1,4 +1,4 @@
-package com.neerajms99b.neeraj.simpletodo.ui;
+package com.neerajms99b.neeraj.simpletodolist.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,8 +11,8 @@ import android.view.View;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
-import com.neerajms99b.neeraj.simpletodo.BuildConfig;
-import com.neerajms99b.neeraj.simpletodo.R;
+import com.neerajms99b.neeraj.simpletodolist.BuildConfig;
+import com.neerajms99b.neeraj.simpletodolist.R;
 
 public class MainActivity extends AppCompatActivity {
 

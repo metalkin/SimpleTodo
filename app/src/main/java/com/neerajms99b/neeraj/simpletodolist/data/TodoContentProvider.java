@@ -1,4 +1,4 @@
-package com.neerajms99b.neeraj.simpletodo.data;
+package com.neerajms99b.neeraj.simpletodolist.data;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
@@ -14,7 +14,7 @@ import android.support.annotation.Nullable;
  */
 
 public class TodoContentProvider extends ContentProvider {
-    private static final String AUTHORITY = "com.neerajms99b.neeraj.simpletodo.data";
+    private static final String AUTHORITY = "com.neerajms99b.neeraj.simpletodolist.data";
     private static final String TABLE_NAME_TODO = "todotable";
     private static final String URL_TODO = "content://" + AUTHORITY + "/" + TABLE_NAME_TODO;
     public static final Uri uriTodo = Uri.parse(URL_TODO);

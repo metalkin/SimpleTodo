@@ -1,11 +1,11 @@
-package com.neerajms99b.neeraj.simpletodo.service;
+package com.neerajms99b.neeraj.simpletodolist.service;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 
-import com.neerajms99b.neeraj.simpletodo.data.TodoContentProvider;
+import com.neerajms99b.neeraj.simpletodolist.data.TodoContentProvider;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

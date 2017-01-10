@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.neerajms99b.neeraj.simpletodo.ui.MainActivity">
+    tools:context="com.neerajms99b.neeraj.simpletodolist.ui.MainActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"

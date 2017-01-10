@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.neerajms99b.neeraj.simpletodo">
+    package="com.neerajms99b.neeraj.simpletodolist">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".ui.MainActivity"
+            android:name="com.neerajms99b.neeraj.simpletodolist.ui.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -26,19 +26,19 @@
         </activity>
 
         <activity
-            android:name=".ui.AddTodoActivity"
+            android:name="com.neerajms99b.neeraj.simpletodolist.ui.AddTodoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <provider
-            android:name=".data.TodoContentProvider"
-            android:authorities="com.neerajms99b.neeraj.simpletodo.data" />
+            android:name="com.neerajms99b.neeraj.simpletodolist.data.TodoContentProvider"
+            android:authorities="com.neerajms99b.neeraj.simpletodolist.data" />
 
-        <receiver android:name=".service.AlarmService" />
+        <receiver android:name="com.neerajms99b.neeraj.simpletodolist.service.AlarmService" />
 
-        <receiver android:name=".service.MarkDone" />
+        <receiver android:name="com.neerajms99b.neeraj.simpletodolist.service.MarkDone" />
 
         <receiver
-            android:name=".service.BootReceiver"
+            android:name="com.neerajms99b.neeraj.simpletodolist.service.BootReceiver"
             android:enabled="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />

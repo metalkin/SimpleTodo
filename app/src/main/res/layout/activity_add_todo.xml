@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.neerajms99b.neeraj.simpletodo.ui.AddTodoActivity">
+    tools:context="com.neerajms99b.neeraj.simpletodolist.ui.AddTodoActivity">
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/activity_vertical_margin"
-            tools:context="com.neerajms99b.neeraj.simpletodo.ui.AddTodoActivity">
+            tools:context="com.neerajms99b.neeraj.simpletodolist.ui.AddTodoActivity">
 
             <EditText
                 android:id="@+id/what_edittext"

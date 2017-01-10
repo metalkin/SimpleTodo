@@ -1,11 +1,11 @@
-package com.neerajms99b.neeraj.simpletodo.ui;
+package com.neerajms99b.neeraj.simpletodolist.ui;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.database.DataSetObserver;
 import android.support.v7.widget.RecyclerView;
 
-import com.neerajms99b.neeraj.simpletodo.data.TodoContentProvider;
+import com.neerajms99b.neeraj.simpletodolist.data.TodoContentProvider;
 
 /**
  * Created by neeraj on 1/1/17.
