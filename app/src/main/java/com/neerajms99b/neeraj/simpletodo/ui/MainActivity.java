@@ -8,9 +8,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.neerajms99b.neeraj.simpletodo.BuildConfig;
 import com.neerajms99b.neeraj.simpletodo.R;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final String MOBILE_ADS_APP_ID = BuildConfig.MOBILE_ADS_APP_ID;
+    private static final String TEST_DEVICE_ID = BuildConfig.TEST_DEVICE_ID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +27,13 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         final Context context = this;
 
+        MobileAds.initialize(getApplicationContext(), MOBILE_ADS_APP_ID);
+
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+//                .addTestDevice(TEST_DEVICE_ID)
+                .build();
+        mAdView.loadAd(adRequest);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

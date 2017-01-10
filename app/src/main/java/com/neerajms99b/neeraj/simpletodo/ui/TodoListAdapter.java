@@ -116,7 +116,7 @@ public class TodoListAdapter extends CursorRecyclerViewAdapter<TodoListAdapter.V
         if (viewType == FIRST_CARD) {
             topMargin = 8;
         } else if (viewType == LAST_CARD) {
-            bottomMargin = 80;
+            bottomMargin = 128;
         }
         CardView cardView = (CardView) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_item, parent, false);
@@ -145,20 +145,20 @@ public class TodoListAdapter extends CursorRecyclerViewAdapter<TodoListAdapter.V
         return 0;
     }
 
-    public String getDateToday() {
+    private String getDateToday() {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Calendar calendar = Calendar.getInstance();
         return format.format(calendar.getTime());
     }
 
-    public String getDateTomorrow() {
+    private String getDateTomorrow() {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DATE, 1);
         return format.format(calendar.getTime());
     }
 
-    public String getDateDisplay(String dateCompare) {
+    private String getDateDisplay(String dateCompare) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         try {
             Date dateObj = format.parse(dateCompare);
@@ -169,7 +169,7 @@ public class TodoListAdapter extends CursorRecyclerViewAdapter<TodoListAdapter.V
         return null;
     }
 
-    public String getTimeDisplay(String time) {
+    private String getTimeDisplay(String time) {
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
         try {
             Date timeObj = timeFormat.parse(time);

@@ -14,6 +14,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.neerajms99b.neeraj.simpletodo.R;
 import com.neerajms99b.neeraj.simpletodo.data.TodoContentProvider;
@@ -63,17 +64,21 @@ public class AddTodoActivity extends AppCompatActivity {
                 String todo = whatEditText.getText().toString();
                 String date = dateTextView.getText().toString();
                 String time = timeTextView.getText().toString();
-                try {
-                    Date displayDate = new SimpleDateFormat("d MMM yyyy").parse(date);
-                    date = new SimpleDateFormat("yyyy-MM-dd").format(displayDate);
-                    Date displayTime = new SimpleDateFormat("hh:mm aa").parse(time);
-                    time = new SimpleDateFormat("HH:mm").format(displayTime);
-                } catch (ParseException e) {
-                    e.printStackTrace();
+                if (!todo.equals("") && !date.equals("") && !time.equals("")) {
+                    try {
+                        Date displayDate = new SimpleDateFormat("d MMM yyyy").parse(date);
+                        date = new SimpleDateFormat("yyyy-MM-dd").format(displayDate);
+                        Date displayTime = new SimpleDateFormat("hh:mm aa").parse(time);
+                        time = new SimpleDateFormat("HH:mm").format(displayTime);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    String dateTime = date + " " + time;
+                    new InsertIntoDb().execute(todo, dateTime);
+                    finish();
+                } else {
+                    Toast.makeText(context, getString(R.string.empty_message), Toast.LENGTH_SHORT).show();
                 }
-                String dateTime = date + " " + time;
-                new InsertIntoDb().execute(todo, dateTime);
-                finish();
             }
         });
     }
